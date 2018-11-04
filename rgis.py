@@ -122,13 +122,16 @@ for n in range(len(dfs)):
             cmp1 = [] 
             for i in range(len(result1)-(shingleLen-1)):
                 cmp1.append (binascii.crc32(' '.join( [x for x in result1[i:i+shingleLen]] ).encode('utf-8'))) # хэширование
+            cmp1 = list(set(cmp1))
             cmp2 = [] 
             for i in range(len(result2)-(shingleLen-1)):
                 cmp2.append (binascii.crc32(' '.join( [x for x in result2[i:i+shingleLen]] ).encode('utf-8')))
             same = 0 #надо
+            cmp2 = list(set(cmp2))
             for i in range(len(cmp1)):
                 if cmp1[i] in cmp2:
                     same +=1
+            
             magic_value = same*2/float(len(cmp1) + len(cmp2))*100
             result[gis_name[n]][j].append({current_gis_name:magic_value})
         
